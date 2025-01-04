@@ -145,9 +145,33 @@ export const Authors = defineDocumentType(() => ({
   computedFields,
 }))
 
+export const Chroncile = defineDocumentType(() => ({
+  name: 'Chroncile',
+  filePathPattern: 'chroncile/**/*.mdx',
+  contentType: 'mdx',
+  fields: {
+    title: { type: 'string', required: true },
+    date: { type: 'date', required: true },
+    duration: { type: 'string'},
+    summary:{ type: 'string' },
+  },
+  computedFields: {
+    ...computedFields,
+    structuredData: {
+      type: 'json',
+      resolve: (doc) => ({
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: doc.title,
+        description: doc.summary,
+        url: `${siteMetadata.siteUrl}/${doc._raw.flattenedPath}`,
+      }),
+    },
+  },
+}))
 export default makeSource({
   contentDirPath: 'data',
-  documentTypes: [Blog, Authors],
+  documentTypes: [Blog, Authors, Chroncile],
   mdx: {
     cwd: process.cwd(),
     remarkPlugins: [
