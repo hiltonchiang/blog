@@ -7,6 +7,7 @@ This is a [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com
 ## Credits
 
 This project is forked from [Timothy Lin](https://www.timlrx.com)
+
 ## Licence
 
 [MIT](https://github.com/timlrx/tailwind-nextjs-starter-blog/blob/main/LICENSE) 
