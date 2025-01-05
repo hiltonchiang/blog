@@ -145,15 +145,18 @@ export const Authors = defineDocumentType(() => ({
   computedFields,
 }))
 
-export const Chroncile = defineDocumentType(() => ({
-  name: 'Chroncile',
-  filePathPattern: 'chroncile/**/*.mdx',
+export const Chronicle = defineDocumentType(() => ({
+  name: 'Chronicle',
+  filePathPattern: 'chronicle/**/*.mdx',
   contentType: 'mdx',
   fields: {
     title: { type: 'string', required: true },
     date: { type: 'date', required: true },
+    lastmod: { type: 'date' },
     duration: { type: 'string'},
     summary:{ type: 'string' },
+    images: { type: 'json' },
+    tags: { type: 'list', of: { type: 'string' }, default: [] },
   },
   computedFields: {
     ...computedFields,
@@ -171,7 +174,7 @@ export const Chroncile = defineDocumentType(() => ({
 }))
 export default makeSource({
   contentDirPath: 'data',
-  documentTypes: [Blog, Authors, Chroncile],
+  documentTypes: [Blog, Authors, Chronicle],
   mdx: {
     cwd: process.cwd(),
     remarkPlugins: [

@@ -6,7 +6,7 @@ interface Props {
 
 export default function WVert({ children }: Props) {
   return (
-    <div className="text-2xl text-center hover:skew-x-12 [writing-mode:vertical-rl] [text-orientation:upright]">
+    <div className="text-center text-2xl [text-orientation:upright] [writing-mode:vertical-rl] hover:skew-x-12">
       {children}
     </div>
   )

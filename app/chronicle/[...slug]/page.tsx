@@ -5,23 +5,23 @@ import PageTitle from '@/components/PageTitle'
 import { components } from '@/components/MDXComponents'
 import { MDXLayoutRenderer } from 'pliny/mdx-components'
 import { sortPosts, coreContent, allCoreContent } from 'pliny/utils/contentlayer'
-import { allChronciles } from 'contentlayer/generated'
-import type { Chroncile } from 'contentlayer/generated'
-import ChroncileLayout from '@/layouts/ChroncileLayout'
+import { allChronicles } from 'contentlayer/generated'
+import type { Chronicle } from 'contentlayer/generated'
+import ChronicleLayout from '@/layouts/ChronicleLayout'
 import { Metadata } from 'next'
 import siteMetadata from '@/data/siteMetadata'
 import { notFound } from 'next/navigation'
 
-const defaultLayout = 'ChroncileLayout'
+const defaultLayout = 'ChronicleLayout'
 const layouts = {
-    ChroncileLayout,
+  ChronicleLayout,
 }
 export async function generateMetadata(props: {
   params: Promise<{ slug: string[] }>
 }): Promise<Metadata | undefined> {
   const params = await props.params
   const slug = decodeURI(params.slug.join('/'))
-  const post = allChronciles.find((p) => p.slug === slug)
+  const post = allChronicles.find((p) => p.slug === slug)
   if (!post) {
     return
   }
@@ -62,14 +62,14 @@ export async function generateMetadata(props: {
 }
 
 export const generateStaticParams = async () => {
-  return allChronciles.map((p) => ({ slug: p.slug.split('/').map((name) => decodeURI(name)) }))
+  return allChronicles.map((p) => ({ slug: p.slug.split('/').map((name) => decodeURI(name)) }))
 }
 
 export default async function Page(props: { params: Promise<{ slug: string[] }> }) {
   const params = await props.params
   const slug = decodeURI(params.slug.join('/'))
   // Filter out drafts in production
-  const sortedCoreContents = allCoreContent(sortPosts(allChronciles))
+  const sortedCoreContents = allCoreContent(sortPosts(allChronicles))
   const postIndex = sortedCoreContents.findIndex((p) => p.slug === slug)
   if (postIndex === -1) {
     return notFound()
@@ -77,10 +77,9 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
 
   const prev = sortedCoreContents[postIndex + 1]
   const next = sortedCoreContents[postIndex - 1]
-  const post = allChronciles.find((p) => p.slug === slug) as Chroncile
+  const post = allChronicles.find((p) => p.slug === slug) as Chronicle
   const mainContent = coreContent(post)
   const jsonLd = post.structuredData
-  
   const Layout = layouts[defaultLayout]
 
   return (

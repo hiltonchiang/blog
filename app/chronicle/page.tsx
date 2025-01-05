@@ -1,6 +1,6 @@
 import TimelineLayout from '@/layouts/TimelineLayout'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
-import { allChronciles } from 'contentlayer/generated'
+import { allChronicles } from 'contentlayer/generated'
 import { genPageMetadata } from 'app/seo'
 
 const POSTS_PER_PAGE = 5
@@ -8,7 +8,7 @@ const POSTS_PER_PAGE = 5
 export const metadata = genPageMetadata({ title: 'Profile' })
 
 export default function Page() {
-  const posts = allCoreContent(sortPosts(allChronciles))
+  const posts = allCoreContent(sortPosts(allChronicles))
   const pageNumber = 1
   const initialDisplayPosts = posts.slice(
     POSTS_PER_PAGE * (pageNumber - 1),
